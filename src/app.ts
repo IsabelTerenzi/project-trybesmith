@@ -3,6 +3,7 @@ import statusCodes from './statusCodes';
 import 'express-async-errors';
 import productsRouter from './routers/productsRouter';
 import usersRouter from './routers/usersRouter';
+import orderRouter from './routers/ordersRouter';
 
 const app = express();
 
@@ -10,6 +11,7 @@ app.use(express.json());
 
 app.use('/products', productsRouter);
 app.use('/users', usersRouter);
+app.use('/orders', orderRouter);
 
 app.get('/', (req: Request, res: Response) => {
   res.status(statusCodes.OK).send('Express + TypeScript');
