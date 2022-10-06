@@ -2,12 +2,14 @@ import express, { NextFunction, Request, Response } from 'express';
 import statusCodes from './statusCodes';
 import 'express-async-errors';
 import productsRouter from './routers/productsRouter';
+import usersRouter from './routers/usersRouter';
 
 const app = express();
 
 app.use(express.json());
 
 app.use('/products', productsRouter);
+app.use('/users', usersRouter);
 
 app.get('/', (req: Request, res: Response) => {
   res.status(statusCodes.OK).send('Express + TypeScript');
