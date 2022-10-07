@@ -17,6 +17,7 @@ export default class OrderModel {
       GROUP BY orders.id
       ORDER BY orders.userId`,
     );
+    // JSON_ARRAYAGG returns result set as single JSON array
     const [rows] = result;
     return rows as Order[];
   }
