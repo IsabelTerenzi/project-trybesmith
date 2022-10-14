@@ -1,6 +1,7 @@
 import connection from '../models/connection';
 import UserModel from '../models/usersModel';
-import User from '../interfaces/userInterface';
+import { User, Login, Payload } from '../interfaces/userInterface';
+import { createToken } from '../middlewares/jwtAuthorization';
 
 class UserService {
   public model: UserModel;
@@ -9,8 +10,21 @@ class UserService {
     this.model = new UserModel(connection);
   }
 
-  public create(user: User): Promise<User> {
-    return this.model.create(user);
+  public async getUser({ username, password }: Login) {
+    const user = await this.model.getUser({ username, password }); 
+    return user;
+  }
+
+  public async create(user: User): Promise<string> {
+    const userCreated = await this.model.create(user);
+
+    const payload: Payload = {
+      id: userCreated,
+      username: user.username,
+    };
+
+    const token = createToken(payload);
+    return token;
   }
 }
 

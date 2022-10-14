@@ -1,10 +1,13 @@
 import { Router } from 'express';
-import LoginController from '../controllers/loginController';
+import UserController from '../controllers/usersController';
+import fieldsValidation from '../middlewares/fieldsValidation';
+
+const { loginValidation } = fieldsValidation;
 
 const loginRouter = Router();
 
-const loginController = new LoginController();
+const userController = new UserController();
 
-loginRouter.post('/', loginController.getUser);
+loginRouter.post('/', loginValidation, userController.getUser);
 
 export default loginRouter;
